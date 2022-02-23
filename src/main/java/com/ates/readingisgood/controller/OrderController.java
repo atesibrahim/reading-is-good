@@ -1,6 +1,6 @@
 package com.ates.readingisgood.controller;
 
-import com.ates.readingisgood.dto.OrderRequestDto;
+import com.ates.readingisgood.dto.OrderDto;
 import com.ates.readingisgood.service.order.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,18 +23,18 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping
-    public List<OrderRequestDto> listOrdersByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,  @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam Date endDate){
+    public List<OrderDto> listOrdersByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam Date endDate){
         return orderService.listOrdersByDateInterval(startDate, endDate);
     }
 
     @GetMapping(value = "/{id}")
-    public OrderRequestDto getById(@PathVariable(name = "id") Integer id){
+    public OrderDto getById(@PathVariable(name = "id") Integer id){
         return orderService.get(id);
     }
 
     @PostMapping
-    public OrderRequestDto save(@RequestBody OrderRequestDto orderRequestDto){
-        return orderService.create(orderRequestDto);
+    public OrderDto save(@RequestBody OrderDto orderDto){
+        return orderService.create(orderDto);
     }
 
 
