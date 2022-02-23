@@ -1,13 +1,13 @@
 package com.ates.readingisgood.service.customer;
 
-import com.ates.readingisgood.domain.Customer;
 import com.ates.readingisgood.domain.Order;
+import com.ates.readingisgood.dto.CustomerDto;
 
 import java.util.List;
 
 public interface CustomerService {
 
-    Customer create(Customer customer);
+    CustomerDto create(CustomerDto customerDto);
 
-    List<Order> listAllCustomerOrders(Integer id);
+    List<Order> listCustomerOrders(Integer id);
 }
