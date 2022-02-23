@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@ToString
+@EqualsAndHashCode(of = "id")
 @Table(name = "CUSTOMER")
 public class Customer {
 
@@ -23,7 +23,6 @@ public class Customer {
 	@Column(name = "Balance")
 	private Double balance;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "OrderCustomerId", referencedColumnName = "Id")
+	@OneToMany(mappedBy = "customerId", cascade = CascadeType.ALL)
 	private List<Order> orders = new ArrayList<>();
 }
