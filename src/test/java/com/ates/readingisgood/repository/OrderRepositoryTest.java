@@ -25,7 +25,7 @@ public class OrderRepositoryTest {
 	@Test
 	public void it_should_find_by_id() {
 		// Given
-		final Order order = Order.builder().id(1).customer(new Customer()).build();
+		final Order order = Order.builder().id(1).customerId(12).build();
 
 		// When
 		when(orderRepository.findById(any())).thenReturn(Optional.ofNullable(order));
@@ -37,13 +37,13 @@ public class OrderRepositoryTest {
 	@Test
 	public void it_should_find_by_customer_id() {
 		// Given
-		final Order order = Order.builder().id(1).customer(new Customer()).build();
+		final Order order = Order.builder().id(1).customerId(34).build();
 
 		final List<Order> orderList = new ArrayList<>();
 		orderList.add(order);
 
 		// When
-		when(orderRepository.findByCustomerIdEquals(any())).thenReturn(orderList);
+		when(orderRepository.findByOrderCustomerIdEquals(any())).thenReturn(orderList);
 
 		// Then
 		assertEquals(1, orderList.get(0).getId());
