@@ -1,13 +1,12 @@
-package com.ates.readingisgood.dao.model;
+package com.ates.readingisgood.domain;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.sql.Date;
 import java.time.LocalDateTime;
-import java.util.Objects;
-
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,28 +15,23 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @ToString
-@Table(name = "order")
-public class Order{
+@Table(name = "ORDERS")
+public class Order {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "Id")
 	private Integer id;
 
-	@Column(name = "CustomerId")
-	private Integer customerId;
-
-	@Column(name = "BookId")
-	private Integer bookId;
-
-	@Column(name = "OrderCount")
-	private Short orderCount;
-
-	@Column(name = "BookCount")
-	private Short bookCount;
-
-	@Column(name = "OrderAmount")
-	private Double orderAmount;
+	@JoinColumn(name = "OrderCustomerId", foreignKey = @ForeignKey(name = "FK_ORDER_CUSTOMER"))
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Customer customer;
 
 	@Column(name = "OrderDate")
-	private LocalDateTime OrderDate;
+	@CreationTimestamp
+	private LocalDateTime orderDate;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "OrderDetailOrderId", referencedColumnName = "Id")
+	private List<OrderDetail> orderDetails = new ArrayList<>();
 }

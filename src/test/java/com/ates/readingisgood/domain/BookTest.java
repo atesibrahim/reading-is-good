@@ -5,39 +5,46 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest
-public class BookEntityTest {
+public class BookTest {
 
-	
-	private BookEntity bookEntity;
+	private Book book;
 	
 	@BeforeEach
 	public void init() {
-		bookEntity = new BookEntity();
+		book = Book.builder().build();
 	}
 	
 	@Test
-	public void whenCalledGetBookName_thenCorrect() {
-		bookEntity.setBookName("1984");
-		assertEquals("1984", bookEntity.getBookName());
+	public void it_should_price_equal_by_given_price() {
+		book.setPrice(2.500);
+		assertEquals(2.500, book.getPrice());
 	}
 	
 	@Test
-	public void whenCalledGetPrice_thenCorrect() {
-		bookEntity.setPrice(2500L);
-		assertEquals(2500L, bookEntity.getPrice());
+	public void it_should_stock_count_equal_by_given_stock_count() {
+		book.setStock(150);
+		assertEquals(150, book.getStock());
 	}
 	
 	@Test
-	public void whenCalledGetCount_thenCorrect() {
-		bookEntity.setCount(150);
-		assertEquals(150, bookEntity.getCount());
+	public void it_should_id_equal_by_given_id() {
+		book.setId(3);
+		assertEquals(3, book.getId());
 	}
-	
+
 	@Test
-	public void whenCalledGetId_thenCorrect() {
-		bookEntity.setId(3L);
-		assertEquals(3L, bookEntity.getId());
+	public void it_should_equal_to_string_by_given()
+	{
+		String expected = "Book(id=null, price=null, stock=null)";
+		assertEquals(expected, book.toString());
+	}
+
+	@Test
+	public void it_should_true_all_arg_constructor(){
+		book = new Book(null, null, null);
+		assertNull(book.getPrice());
 	}
 }

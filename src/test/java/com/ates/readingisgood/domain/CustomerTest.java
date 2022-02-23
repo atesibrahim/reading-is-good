@@ -4,73 +4,46 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest
-public class CustomerEntityTest {
+public class CustomerTest {
 
-	
-	private CustomerEntity customerEntity;
+	private Customer customer;
 	
 	@BeforeEach
 	public void init() {
-		customerEntity = new CustomerEntity();
+		customer = Customer.builder().build();
 	}
-	
-	@Test
-	public void whenCalledConstructor_thenCorrect() {
-		Set<OrderEntity> orders = new HashSet<>();
-		customerEntity = new CustomerEntity("ibrahim ates", 150L, orders);
 
-		assertEquals(null, customerEntity.getId());
+	@Test
+	public void it_should_id_equal_by_given_id() {
+		customer.setId(2);
+		assertEquals(2, customer.getId());
 	}
 	
 	@Test
-	public void whenCalledEquals_thenCorrect() {
-		assertEquals(true, customerEntity.equals(customerEntity));
+	public void it_should_balance_equal_by_given_balance() {
+		customer.setBalance(2.500);
+		assertEquals(2.500, customer.getBalance());
 	}
-	
+
 	@Test
-	public void whenCalledEqualsNull_thenFalse() {
-		assertEquals(false, customerEntity.equals(null));
+	public void it_should_equal_to_string_by_given()
+	{
+		String expected = "Customer(id=null, balance=null)";
+		assertEquals(expected, customer.toString());
 	}
-	
+
 	@Test
-	public void whenCalledHashcode_thenTrue() {
-		assertEquals(31, customerEntity.hashCode());
+	public void it_should_true_all_arg_constructor(){
+		customer = new Customer(null, null, new ArrayList<>());
+		assertNull(customer.getBalance());
 	}
-	
-	
-	@Test
-	public void whenCalledGetId_thenCorrect() {
-		assertEquals(null, customerEntity.getId());
-	}
-	
-	@Test
-	public void whenCalledGetCustomerName_thenCorrect() {
-		customerEntity.setCustomerName("Ibrahim Ates");
-		assertEquals("Ibrahim Ates", customerEntity.getCustomerName());
-	}
-	
-	@Test
-	public void whenCalledGetBalance_thenCorrect() {
-		customerEntity.setBalance(2500L);
-		assertEquals(2500L, customerEntity.getBalance());
-	}
-	
-	@Test
-	public void whenCalledGetOrders_thenTrue() {
-		Set<OrderEntity> orderEntities = new HashSet<>();
-		assertEquals(orderEntities, customerEntity.getOrders());
-	}
-	
-	@Test
-	public void whenCalledSetOrders_thenTrue() {
-		Set<OrderEntity> orderEntities = new HashSet<>();
-		customerEntity.setOrders(orderEntities);
-		assertEquals(orderEntities, customerEntity.getOrders());
-	}
+
 }

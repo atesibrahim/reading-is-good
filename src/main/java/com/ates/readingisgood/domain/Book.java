@@ -1,10 +1,7 @@
-package com.ates.readingisgood.dao.model;
+package com.ates.readingisgood.domain;
 
 import lombok.*;
-
 import javax.persistence.*;
-import java.io.Serializable;
-
 
 @Getter
 @Setter
@@ -13,20 +10,18 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Entity
 @ToString
-@Table(name = "book")
+@Table(name = "BOOK")
 public class Book{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "Id")
 	private Integer id;
 
-	@Column
-	private String name;
-
-	@Column
+	@Column(name = "Price")
 	private Double price;
 
-	@Column(name = "StockCount")
-	private Integer stockCount;
+	@Column(name = "Stock")
+	private Integer stock;
 
 }

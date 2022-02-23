@@ -3,72 +3,69 @@ package com.ates.readingisgood.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest
-public class OrderTest {
+public class OrderDetailTest {
 
-	private Order order;
+	private OrderDetail orderDetail;
 	
 	@BeforeEach
 	public void init() {
-		order = Order.builder().build();
+		orderDetail = OrderDetail.builder().build();
 	}
 
 	@Test
 	public void it_should_id_should_be_null() {
-		assertNull(order.getId());
+		assertNull(orderDetail.getId());
 	}
-	
-	@Test
-	public void it_should_customer_id_equal_by_given_customer_id() {
-		order.setCustomerId(2);
-		assertEquals(2, order.getCustomerId());
-	}
+
 
 	@Test
 	public void it_should_book_id_equal_by_given_book_id() {
-		order.setBookId(5);
-		assertEquals(5, order.getBookId());
+		orderDetail.setBookId(5);
+		assertEquals(5, orderDetail.getBookId());
 	}
 	
 	@Test
 	public void it_should_book_count_equal_by_given_book_count() {
-		order.setBookCount(150);
-		assertEquals(150, order.getBookCount());
+		orderDetail.setBookCount(150);
+		assertEquals(150, orderDetail.getBookCount());
 	}
 	
 	@Test
 	public void it_should_order_amount_equal_by_order_amount() {
-		order.setOrderAmount(1.500);
-		assertEquals(1.500, order.getOrderAmount());
+		orderDetail.setOrderAmount(1.500);
+		assertEquals(1.500, orderDetail.getOrderAmount());
 	}
 
 	@Test
 	public void it_should_order_count_equal_by_given() {
-		order.setOrderCount(12);
-		assertEquals(12, order.getOrderCount());
+		orderDetail.setBookCount(12);
+		assertEquals(12, orderDetail.getBookCount());
 	}
 
 	@Test
 	public void it_should_local_date_equal_by_given() {
 		LocalDateTime localDateTime = LocalDateTime.now();
-		order.setOrderDate(localDateTime);
-		assertEquals(localDateTime, order.getOrderDate());
+		orderDetail.setOrderDate(localDateTime);
+		assertEquals(localDateTime, orderDetail.getOrderDate());
 	}
 
 	@Test
 	public void it_should_equal_to_string_by_given()
 	{
-		String expected = "Order(id=null, customerId=null, bookId=null, orderCount=null, bookCount=null, orderAmount=null, OrderDate=null)";
-		assertEquals(expected, order.toString());
+		String expected = "OrderDetail(id=null, orderId=null, bookId=null, bookCount=null, orderAmount=null, OrderDate=null)";
+		assertEquals(expected, orderDetail.toString());
 	}
 
 	@Test
 	public void it_should_true_all_arg_constructor(){
-		order = new Order(null, null, null, null, null, null, null);
-		assertNull(order.getOrderDate());
+		orderDetail = new OrderDetail(null, null, null, null, null, null);
+		assertNull(orderDetail.getOrderDate());
 	}
 }
