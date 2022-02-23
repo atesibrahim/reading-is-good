@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@EqualsAndHashCode
 @ToString
 @Table(name = "ORDERS")
 public class Order {
@@ -23,15 +24,19 @@ public class Order {
 	@Column(name = "Id")
 	private Integer id;
 
-	@JoinColumn(name = "OrderCustomerId", foreignKey = @ForeignKey(name = "FK_ORDER_CUSTOMER"))
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Customer customer;
+	@JoinColumn(name = "CustomerId", foreignKey = @ForeignKey(name = "FK_ORDER_CUSTOMER"))
+	private Integer customerId;
+
+	@JoinColumn(name = "BookId", foreignKey = @ForeignKey(name = "FK_ORDER_BOOK"))
+	private Integer bookId;
+
+	@Column(name = "BookCount")
+	private Integer bookCount;
+
+	@Column(name = "OrderAmount")
+	private Double orderAmount;
 
 	@Column(name = "OrderDate")
 	@CreationTimestamp
-	private LocalDateTime orderDate;
-
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "OrderDetailOrderId", referencedColumnName = "Id")
-	private List<OrderDetail> orderDetails = new ArrayList<>();
+	private LocalDateTime OrderDate;
 }
