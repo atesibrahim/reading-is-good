@@ -3,7 +3,7 @@ package com.ates.readingisgood.service.order;
 import com.ates.readingisgood.domain.Book;
 import com.ates.readingisgood.domain.Customer;
 import com.ates.readingisgood.domain.Order;
-import com.ates.readingisgood.dto.OrderRequestDto;
+import com.ates.readingisgood.dto.OrderDto;
 import com.ates.readingisgood.repository.BookRepository;
 import com.ates.readingisgood.repository.CustomerRepository;
 import com.ates.readingisgood.repository.OrderRepository;
@@ -30,10 +30,10 @@ public class OrderServiceImpl implements OrderService {
     BookRepository bookRepository;
 
     @Override
-    public OrderRequestDto get(Integer id) {
+    public OrderDto get(Integer id) {
         //TODO validate
         Order order = orderRepository.getById(id);
-        return OrderRequestDto.builder()
+        return OrderDto.builder()
                 .orderAmount(order.getOrderAmount())
                 .customerId(order.getCustomerId())
                 .bookId(order.getBookId())
@@ -43,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderRequestDto create(OrderRequestDto orderDto) {
+    public OrderDto create(OrderDto orderDto) {
         //TODO validate
         Optional<Customer> customer = customerRepository.findById(orderDto.getCustomerId());
         //TODO check stock and balance
@@ -67,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
         //OrderDetail orderDetail = OrderDetail.builder().id(1).orderId(12).bookId(orderDto.getBookId()).bookCount(100).build();
         //orderDetailRepository.save(orderDetail);
 
-        return OrderRequestDto.builder()
+        return OrderDto.builder()
                 .orderAmount(result.getOrderAmount())
                 .customerId(result.getCustomerId())
                 .bookId(result.getBookId())
@@ -77,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderRequestDto> listOrdersByDateInterval(Date startDate, Date endDate) {
+    public List<OrderDto> listOrdersByDateInterval(Date startDate, Date endDate) {
         //TODO validate
         // check endDate >= startDate
         LocalDateTime localStartDate = startDate.toInstant()
@@ -89,9 +89,9 @@ public class OrderServiceImpl implements OrderService {
 
         List<Order> orders = orderRepository.findByOrderDateIsBetween(localStartDate, localEndDate);
 
-        List<OrderRequestDto> resultOrders = new ArrayList<>();
+        List<OrderDto> resultOrders = new ArrayList<>();
         orders.forEach(order->
-                resultOrders.add(OrderRequestDto.builder()
+                resultOrders.add(OrderDto.builder()
                         .orderAmount(order.getOrderAmount())
                         .customerId(order.getCustomerId())
                         .bookId(order.getBookId())

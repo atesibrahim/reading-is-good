@@ -1,15 +1,15 @@
 package com.ates.readingisgood.service.order;
 
-import com.ates.readingisgood.dto.OrderRequestDto;
+import com.ates.readingisgood.dto.OrderDto;
 
 import java.util.Date;
 import java.util.List;
 
 public interface OrderService {
 
-    OrderRequestDto get(Integer id);
+    OrderDto get(Integer id);
 
-    OrderRequestDto create(OrderRequestDto orderDto);
+    OrderDto create(OrderDto orderDto);
 
-    List<OrderRequestDto> listOrdersByDateInterval(Date startDate, Date endDate);
+    List<OrderDto> listOrdersByDateInterval(Date startDate, Date endDate);
 }
