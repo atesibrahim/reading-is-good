@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 @Getter
@@ -12,7 +14,9 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 public class CustomerDto {
+	@Positive
 	private Integer id;
+	@PositiveOrZero
 	private Double balance;
 	private List<OrderDto> orders;
 }

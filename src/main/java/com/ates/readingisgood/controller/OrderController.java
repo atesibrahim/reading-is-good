@@ -4,6 +4,7 @@ import com.ates.readingisgood.dto.OrderDto;
 import com.ates.readingisgood.service.order.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,11 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.Positive;
 import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("orders")
+@Validated
 public class OrderController {
 
     @Autowired
@@ -28,12 +31,12 @@ public class OrderController {
     }
 
     @GetMapping(value = "/{id}")
-    public OrderDto getById(@PathVariable(name = "id") Integer id){
+    public OrderDto getById(@PathVariable(name = "id") @Positive Integer id){
         return orderService.get(id);
     }
 
     @PostMapping
-    public OrderDto save(@RequestBody OrderDto orderDto){
+    public OrderDto save(@RequestBody @Validated OrderDto orderDto){
         return orderService.create(orderDto);
     }
 }
