@@ -36,13 +36,6 @@ public class BookTest {
 	}
 
 	@Test
-	public void it_should_equal_to_string_by_given()
-	{
-		String expected = "Book(id=null, price=null, stock=null)";
-		assertEquals(expected, book.toString());
-	}
-
-	@Test
 	public void it_should_true_all_arg_constructor(){
 		book = new Book(null, null, null);
 		assertNull(book.getPrice());
