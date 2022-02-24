@@ -110,3 +110,8 @@ Body Should be like;
 "orderAmount": 50,
 "bookCount": 20
 }
+
+
+Test Coverage Rate;
+
+![img.png](img.png)
