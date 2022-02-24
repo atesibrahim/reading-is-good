@@ -1,6 +1,8 @@
 package com.ates.readingisgood.controller;
 
 import com.ates.readingisgood.dto.OrderDto;
+import com.ates.readingisgood.exception.DateException;
+import com.ates.readingisgood.exception.SufficientException;
 import com.ates.readingisgood.service.order.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,7 +28,7 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping
-    public List<OrderDto> listOrdersByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam Date endDate){
+    public List<OrderDto> listOrdersByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam Date endDate) throws DateException {
         return orderService.listOrdersByDateInterval(startDate, endDate);
     }
 
@@ -36,7 +38,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public OrderDto save(@RequestBody @Validated OrderDto orderDto){
+    public OrderDto save(@RequestBody @Validated OrderDto orderDto) throws SufficientException {
         return orderService.create(orderDto);
     }
 }

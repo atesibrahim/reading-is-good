@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer>{
-    @Query(value="SELECT o from Order o where o.OrderDate between :startDate and :endDate")
+    @Query(value="SELECT o from Order o where o.orderDate between :startDate and :endDate")
     List<Order> findByOrderDateIsBetween(LocalDateTime startDate, LocalDateTime endDate);
 
     @Query(value = "SELECT MONTH(order_date) as month, count(*) as totalOrderCount, sum(o.book_count) as totalBookCount, " +

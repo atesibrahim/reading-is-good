@@ -4,12 +4,15 @@ import com.ates.readingisgood.domain.Book;
 import com.ates.readingisgood.domain.Customer;
 import com.ates.readingisgood.domain.Order;
 import com.ates.readingisgood.dto.OrderDto;
+import com.ates.readingisgood.exception.DateException;
+import com.ates.readingisgood.exception.SufficientException;
 import com.ates.readingisgood.repository.BookRepository;
 import com.ates.readingisgood.repository.CustomerRepository;
 import com.ates.readingisgood.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -30,8 +33,8 @@ public class OrderServiceImpl implements OrderService {
     BookRepository bookRepository;
 
     @Override
+    @Transactional
     public OrderDto get(Integer id) {
-        //TODO validate
         Order order = orderRepository.getById(id);
         return OrderDto.builder()
                 .orderAmount(order.getOrderAmount())
@@ -43,29 +46,24 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDto create(OrderDto orderDto) {
-        //TODO validate
+    @Transactional
+    public OrderDto create(OrderDto orderDto) throws SufficientException {
         Optional<Customer> customer = customerRepository.findById(orderDto.getCustomerId());
-        //TODO check stock and balance
-
         if (customer.get().getBalance()<orderDto.getOrderAmount()) {
-            //TODO throw balance sufficient error will added here
-            return null;
+            throw new SufficientException("Your balance is not sufficient");
         }
 
         Optional<Book> book = bookRepository.findById(orderDto.getBookId());
-
         if (book.get().getStock() < orderDto.getBookCount()) {
-            //TODO throw stock sufficient error will added here
-            return null;
+            throw new SufficientException("The stock of books is not enough for your order");
         }
 
-        Order order = Order.builder().customerId(orderDto.getCustomerId()).orderAmount(orderDto.getOrderAmount()).bookCount(orderDto.getBookCount()).bookId(orderDto.getBookId()).build();
-
+        Order order = Order.builder()
+                .customerId(orderDto.getCustomerId())
+                .orderAmount(orderDto.getOrderAmount())
+                .bookCount(orderDto.getBookCount())
+                .bookId(orderDto.getBookId()).build();
         Order result = orderRepository.save(order);
-
-        //OrderDetail orderDetail = OrderDetail.builder().id(1).orderId(12).bookId(orderDto.getBookId()).bookCount(100).build();
-        //orderDetailRepository.save(orderDetail);
 
         return OrderDto.builder()
                 .orderAmount(result.getOrderAmount())
@@ -77,9 +75,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDto> listOrdersByDateInterval(Date startDate, Date endDate) {
-        //TODO validate
-        // check endDate >= startDate
+    public List<OrderDto> listOrdersByDateInterval(Date startDate, Date endDate) throws DateException {
+        if (startDate.after(endDate)){
+            throw new DateException("StartDate Cannot Be Greater Than EndDate");
+        }
         LocalDateTime localStartDate = startDate.toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime();

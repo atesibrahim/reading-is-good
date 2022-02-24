@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -32,7 +32,7 @@ public class BookRepositoryTest {
 		assertEquals(2, bookList.get(0).getId());
 		assertEquals(567, bookList.get(0).getStock());
 		assertEquals(125.0, bookList.get(0).getPrice());
-		assertEquals(1, bookList.size());
+		assertEquals(2, bookList.size());
 	}
 
 	@Test

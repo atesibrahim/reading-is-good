@@ -19,9 +19,6 @@ public class StatisticsServiceImpl implements StatisticsService {
 
     @Override
     public List<StatisticsDto> getCustomerMonthlyStatistics(Integer customerId) {
-
-        //TODO validate customerId
-
         List<Map<String, Object>> orderMonthlyStatistics = orderRepository.findMonthlyOrderStatistics(customerId);
         List<StatisticsDto> monthlyStatistics = new ArrayList<>();
 

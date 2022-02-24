@@ -1,7 +1,7 @@
 package com.ates.readingisgood.controller;
 
-import com.ates.readingisgood.domain.Order;
 import com.ates.readingisgood.dto.CustomerDto;
+import com.ates.readingisgood.dto.OrderDto;
 import com.ates.readingisgood.service.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -24,7 +24,7 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping(value = "/{id}/orders")
-    public List<Order> getCustomerOrders(@PathVariable(name = "id")  @Positive Integer id){
+    public List<OrderDto> getCustomerOrders(@PathVariable(name = "id")  @Positive Integer id){
         return customerService.listCustomerOrders(id);
     }
 

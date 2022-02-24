@@ -27,6 +27,7 @@ public class ReadingIsGoodApplication {
                     .addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                     .authorizeRequests()
                     .antMatchers(HttpMethod.GET, "/token").permitAll()
+                    .antMatchers(HttpMethod.GET, "/health").permitAll()
                     .anyRequest().authenticated();
         }
     }

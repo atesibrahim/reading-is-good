@@ -45,5 +45,5 @@ public class Order {
 
 	@Column(name = "OrderDate")
 	@CreationTimestamp
-	private LocalDateTime OrderDate;
+	private LocalDateTime orderDate;
 }
