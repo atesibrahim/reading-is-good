@@ -17,8 +17,8 @@ public class StatisticsController {
     @Autowired
     private StatisticsService statisticsService;
 
-    @GetMapping(name = "/{id}")
-    public List<StatisticsDto> getCustomersMonthlyStatistics(@PathVariable(name = "id") Integer id){
+    @GetMapping(value = "/{id}")
+    public List<StatisticsDto> getCustomersMonthlyStatistics(@PathVariable(name = "id") Integer id) {
         return statisticsService.getCustomerMonthlyStatistics(id);
     }
 }

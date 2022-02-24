@@ -1,47 +1,43 @@
 package com.ates.readingisgood.service.statistics;
 
-import com.ates.readingisgood.domain.Customer;
 import com.ates.readingisgood.dto.StatisticsDto;
-import com.ates.readingisgood.repository.BookRepository;
-import com.ates.readingisgood.repository.CustomerRepository;
 import com.ates.readingisgood.repository.OrderRepository;
-import com.ates.readingisgood.service.order.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.math.BigInteger;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.Map;
 
 @Service
-public class StatisticsServiceImpl implements StatisticsService{
+public class StatisticsServiceImpl implements StatisticsService {
 
     @Autowired
-    OrderService orderService;
-
-    @Autowired
-    CustomerRepository customerRepository;
-
-    @Autowired
-    BookRepository bookRepository;
-
+    OrderRepository orderRepository;
 
     @Override
     public List<StatisticsDto> getCustomerMonthlyStatistics(Integer customerId) {
 
-        Optional<Customer> customer = customerRepository.findById(customerId);
+        //TODO validate customerId
 
-        if(!customer.isPresent()){
-            //TODO log info will added here
-            return null;
+        List<Map<String, Object>> orderMonthlyStatistics = orderRepository.findMonthlyOrderStatistics(customerId);
+        List<StatisticsDto> monthlyStatistics = new ArrayList<>();
+
+        if (orderMonthlyStatistics.size() < 1) {
+            return monthlyStatistics;
         }
-        Date startDate = new Date();
-        Date endDate = new Date();
 
-        orderService.listOrdersByDateInterval(startDate, endDate);
+        orderMonthlyStatistics.forEach(element -> {
+            final StatisticsDto statisticsDto = StatisticsDto.builder()
+                    .month(Month.of((Integer) element.get("month")).toString())
+                    .totalOrderCount((BigInteger) element.get("totalOrderCount"))
+                    .totalBookCount((BigInteger) element.get("totalBookCount"))
+                    .totalPurchasedAmount((Double) element.get("totalPurchasedAmount")).build();
+            monthlyStatistics.add(statisticsDto);
+        });
 
-
-        return null;
+        return monthlyStatistics;
     }
 }

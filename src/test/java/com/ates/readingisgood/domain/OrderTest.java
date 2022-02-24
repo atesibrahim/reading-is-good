@@ -3,10 +3,11 @@ package com.ates.readingisgood.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.time.LocalDateTime;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringBootTest
 public class OrderTest {
@@ -31,15 +32,8 @@ public class OrderTest {
 	}
 
 	@Test
-	public void it_should_equal_to_string_by_given()
-	{
-		String expected = "Order(id=null, customerId=null, orderDate=null)";
-		assertEquals(expected, order.toString());
-	}
-
-	@Test
 	public void it_should_true_all_arg_constructor(){
-		order = new Order(null, null, null, new ArrayList<>());
+		order = Order.builder().build();
 		assertNull(order.getOrderDate());
 	}
 }
