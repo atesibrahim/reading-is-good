@@ -9,6 +9,7 @@ import com.ates.readingisgood.exception.SufficientException;
 import com.ates.readingisgood.repository.BookRepository;
 import com.ates.readingisgood.repository.CustomerRepository;
 import com.ates.readingisgood.repository.OrderRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
@@ -35,7 +37,9 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public OrderDto get(Integer id) {
+        log.info("Order get started. Coming data: . Order id :{}", id);
         Order order = orderRepository.getById(id);
+        log.info("Order get finished. Result data: . Order :{}", order);
         return OrderDto.builder()
                 .orderAmount(order.getOrderAmount())
                 .customerId(order.getCustomerId())
@@ -48,13 +52,18 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public OrderDto create(OrderDto orderDto) throws SufficientException {
+        log.info("Order crete started. Coming data: . OrderDto:{}", orderDto);
         Optional<Customer> customer = customerRepository.findById(orderDto.getCustomerId());
-        if (customer.get().getBalance()<orderDto.getOrderAmount()) {
+        if (customer.get().getBalance() < orderDto.getOrderAmount()) {
+            log.warn("Customer balance is not sufficient. Order amount: {}, Customer balance :{}",
+                    orderDto.getOrderAmount(), customer.get().getBalance());
             throw new SufficientException("Your balance is not sufficient");
         }
 
         Optional<Book> book = bookRepository.findById(orderDto.getBookId());
         if (book.get().getStock() < orderDto.getBookCount()) {
+            log.warn("There is no enough stock for this order. Order book count: {}, Book count :{}",
+                    orderDto.getBookCount(), book.get().getStock());
             throw new SufficientException("The stock of books is not enough for your order");
         }
 
@@ -64,6 +73,8 @@ public class OrderServiceImpl implements OrderService {
                 .bookCount(orderDto.getBookCount())
                 .bookId(orderDto.getBookId()).build();
         Order result = orderRepository.save(order);
+
+        log.info("Order create finished. response data. Order:{}", result);
 
         return OrderDto.builder()
                 .orderAmount(result.getOrderAmount())
@@ -76,7 +87,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrderDto> listOrdersByDateInterval(Date startDate, Date endDate) throws DateException {
+        log.info("Order listOrdersByDateInterval started. Coming Start date:{}, End date:{}", startDate, endDate);
         if (startDate.after(endDate)){
+            log.warn("Start date cannot be greater than end date");
             throw new DateException("StartDate Cannot Be Greater Than EndDate");
         }
         LocalDateTime localStartDate = startDate.toInstant()
@@ -98,6 +111,7 @@ public class OrderServiceImpl implements OrderService {
                          .orderDate(order.getOrderDate())
                         .build())
         );
+        log.info("Order listOrdersByDateInterval finished. Response data size: {}", resultOrders.size());
         return resultOrders;
     }
 }

@@ -26,17 +26,25 @@ Lombok, Spring security was used.
 #### data.sql:
 
 INSERT INTO CUSTOMER (Id, Balance) VALUES (1, 8500);
+
 INSERT INTO CUSTOMER (Id, Balance) VALUES (2, 6000);
+
 INSERT INTO CUSTOMER (Id, Balance) VALUES (3, 8500);
 
 INSERT INTO BOOK (Id, Price, Stock) VALUES (1, 85, 10);
+
 INSERT INTO BOOK (id, Price, Stock) VALUES (2, 40, 60);
+
 INSERT INTO BOOK (id, Price, Stock) VALUES (3, 80, 10);
 
 INSERT INTO ORDERS (Id, Customer_Id, Order_Date, Book_Id, Book_Count, Order_Amount) VALUES (1, 2, '2022-02-24 12:27:19.882449', 1, 10, 1500);
+
 INSERT INTO ORDERS (id, Customer_Id, Order_Date, Book_Id, Book_Count, Order_Amount) VALUES (2, 2, '2022-02-23 12:27:19.882449', 3, 23, 1500);
+
 INSERT INTO ORDERS (id, Customer_Id, Order_Date, Book_Id, Book_Count, Order_Amount) VALUES (3, 2, '2022-02-20 12:27:19.882449', 3, 23, 1500);
+
 INSERT INTO ORDERS (id, Customer_Id, Order_Date, Book_Id, Book_Count, Order_Amount) VALUES (4, 2, '2022-01-24 12:27:19.882449', 2, 23, 1500);
+
 INSERT INTO ORDERS (id, Customer_Id, Order_Date, Book_Id, Book_Count, Order_Amount) VALUES (5, 1, '2022-01-23 12:27:19.882449', 2, 100, 100);
 
 
@@ -106,7 +114,7 @@ GET: http://localhost:8090/customers/2/orders
 
 GET: http://localhost:8090/statistics/1
 
-Add New Customer;
+#### Add New Customer;
 
 POST: http://localhost:8090/customers
 
@@ -129,19 +137,30 @@ Body should be like;
 
 PUT: http://localhost:8090/books/1/stock?stock=10
 
-Get Order By Id;
+#### Get Order By Id;
 
 GET: http://localhost:8090/orders/1
 
-List Orders By Date;
+#### List Orders By Date;
 
 GET : http://localhost:8090/orders?startDate=2022-02-20&endDate=2022-02-22
+
+if start date bigger than end date, you will get response as;
+
+{
+"apierror": {
+"status": "BAD_REQUEST",
+"timestamp": "25-02-2022 03:26:58",
+"message": "StartDate Cannot Be Greater Than EndDate"
+}
+}
+
 
 #### Add New Order;
 
 POST: http://localhost:8090/orders
 
-Body should be like;
+Request Body should be like;
 {
 "customerId": 2,
 "bookId": 3,
@@ -149,6 +168,29 @@ Body should be like;
 "bookCount": 20
 }
 
+When you create order with order amount bigger than customer balance,
+then you will be get error like;
+
+{
+"apierror": {
+"status": "BAD_REQUEST",
+"timestamp": "25-02-2022 03:34:13",
+"message": "Your balance is not sufficient"
+}
+}
+
+
+
+When you create order with book count bigger than book stock,
+then you will be get error like;
+
+{
+"apierror": {
+"status": "BAD_REQUEST",
+"timestamp": "25-02-2022 03:36:23",
+"message": "The stock of books is not enough for your order"
+}
+}
 
 Test Coverage Rate;
 
