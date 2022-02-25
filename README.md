@@ -7,9 +7,11 @@ You will be find details about project bellow.
 
 server run on 8090 port.
 
+Developed with java 11.
+
 H2 database was used.
 
-Lombok, spring security
+Lombok, Spring security, JsonWebToken also was used.
 
 validation messages;
 
