@@ -13,6 +13,15 @@ H2 database was used.
 
 Lombok, Spring security, JsonWebToken also was used.
 
+Dockerfile:
+for build and run
+
+docker build --tag=reading-is-good-docker:1.0 .
+
+docker run -p 8090:8090 reading-is-good-docker:1.0 .
+or 
+docker run -it --rm --name reading-is-good -p 8090:8090 reading-is-good-docker:1.0 .
+
 validation messages;
 
 
