@@ -33,11 +33,8 @@ public class BookServiceImpl implements BookService {
     @Transactional
     public BookDto updateStock(Integer id, Integer stock) throws RecordNotFoundException {
         log.info("Book update stock started. Coming data id: {}, stock: {} ", id, stock);
-        Optional<Book> book = bookRepository.findById(id);
-        if (book.isEmpty()) {
-            throw new RecordNotFoundException(String.format("There is No Book Record on Database with id: %s", id));
-        }
-
+        Optional<Book> book = Optional.ofNullable(bookRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException("No book found with id: %s" + id)));
         book.get().setStock(stock);
         Book result = bookRepository.save(book.get());
         log.info("Book update stock finished. Response data of book: {} ", result);

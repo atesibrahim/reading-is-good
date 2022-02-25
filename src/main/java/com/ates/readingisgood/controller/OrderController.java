@@ -2,6 +2,7 @@ package com.ates.readingisgood.controller;
 
 import com.ates.readingisgood.dto.OrderDto;
 import com.ates.readingisgood.exception.DateException;
+import com.ates.readingisgood.exception.RecordNotFoundException;
 import com.ates.readingisgood.exception.SufficientException;
 import com.ates.readingisgood.service.order.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public OrderDto save(@RequestBody @Validated OrderDto orderDto) throws SufficientException {
+    public OrderDto save(@RequestBody @Validated OrderDto orderDto) throws SufficientException, RecordNotFoundException {
         return orderService.create(orderDto);
     }
 }

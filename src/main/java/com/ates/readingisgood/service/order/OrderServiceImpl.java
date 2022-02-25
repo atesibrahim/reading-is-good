@@ -5,6 +5,7 @@ import com.ates.readingisgood.domain.Customer;
 import com.ates.readingisgood.domain.Order;
 import com.ates.readingisgood.dto.OrderDto;
 import com.ates.readingisgood.exception.DateException;
+import com.ates.readingisgood.exception.RecordNotFoundException;
 import com.ates.readingisgood.exception.SufficientException;
 import com.ates.readingisgood.repository.BookRepository;
 import com.ates.readingisgood.repository.CustomerRepository;
@@ -51,16 +52,18 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public OrderDto create(OrderDto orderDto) throws SufficientException {
+    public OrderDto create(OrderDto orderDto) throws SufficientException, RecordNotFoundException {
         log.info("Order crete started. Coming data: . OrderDto:{}", orderDto);
-        Optional<Customer> customer = customerRepository.findById(orderDto.getCustomerId());
+        Optional<Customer> customer = Optional.ofNullable(customerRepository.findById(orderDto.getCustomerId())
+                .orElseThrow(() -> new RecordNotFoundException("No customer found")));
         if (customer.get().getBalance() < orderDto.getOrderAmount()) {
             log.warn("Customer balance is not sufficient. Order amount: {}, Customer balance :{}",
                     orderDto.getOrderAmount(), customer.get().getBalance());
             throw new SufficientException("Your balance is not sufficient");
         }
 
-        Optional<Book> book = bookRepository.findById(orderDto.getBookId());
+        Optional<Book> book = Optional.ofNullable(bookRepository.findById(orderDto.getBookId())
+                .orElseThrow(() -> new RecordNotFoundException("No book found")));
         if (book.get().getStock() < orderDto.getBookCount()) {
             log.warn("There is no enough stock for this order. Order book count: {}, Book count :{}",
                     orderDto.getBookCount(), book.get().getStock());
