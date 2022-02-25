@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
@@ -15,12 +16,16 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @ToString
 public class OrderDto {
+	@NotNull
 	@Positive
 	private Integer customerId;
+	@NotNull
 	@Positive
 	private Integer bookId;
+	@NotNull
 	@Positive
 	private Double orderAmount;
+	@NotNull
 	@Positive
 	private Integer bookCount;
 	private LocalDateTime orderDate;

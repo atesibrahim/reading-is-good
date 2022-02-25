@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
@@ -20,8 +21,10 @@ import javax.validation.constraints.PositiveOrZero;
 public class BookDto {
 	@Positive
 	private Integer id;
+	@NotNull
 	@Positive
 	private Double price;
+	@NotNull
 	@PositiveOrZero
 	private Integer stock;
 }
