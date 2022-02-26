@@ -1,4 +1,4 @@
-package com.ates.readingisgood.controller.api;
+package com.ates.readingisgood.configuration.api;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -27,12 +27,6 @@ public class ApiError {
 	public ApiError(HttpStatus status) {
 		this();
 		this.status = status;
-	}
-
-	public ApiError(HttpStatus status, Throwable ex) {
-		this();
-		this.status = status;
-		this.message = "Unexpected error";
 	}
 
 	public ApiError(HttpStatus status, String message, Throwable ex) {

@@ -28,6 +28,10 @@ public class ReadingIsGoodApplication {
                     .authorizeRequests()
                     .antMatchers(HttpMethod.GET, "/token").permitAll()
                     .antMatchers(HttpMethod.GET, "/health").permitAll()
+                    .antMatchers(HttpMethod.GET, "/api").permitAll()
+                    .antMatchers(HttpMethod.GET, "/swagger-ui/*").permitAll()
+                    .antMatchers(HttpMethod.GET, "/v3/api-docs").permitAll()
+                    .antMatchers(HttpMethod.GET, "/v3/api-docs/swagger-config").permitAll()
                     .anyRequest().authenticated();
         }
     }

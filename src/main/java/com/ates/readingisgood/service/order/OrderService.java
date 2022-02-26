@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface OrderService {
 
-    OrderDto get(Integer id);
+    OrderDto get(Integer id) throws RecordNotFoundException;
 
     OrderDto create(OrderDto orderDto) throws SufficientException, RecordNotFoundException;
 

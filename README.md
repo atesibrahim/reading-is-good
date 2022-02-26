@@ -10,43 +10,9 @@ You will be find details about project bellow.
 App will run on 8090 port.
 
 When you are running to started this app on your pc;
-data.sql will create customer, orders and book tables
+data.sql will create **CUSTOMER**, **ORDERS** and **BOOK** tables
 
 Initially, some example data will be created on tables.
-
-### App Tech Stack
-Developed with java 11.
-
-Springboot 2.6.3 version,
-
-H2 database,
-
-Lombok, Spring security was used.
-
-#### data.sql:
-
-INSERT INTO CUSTOMER (Id, Balance) VALUES (1, 8500);
-
-INSERT INTO CUSTOMER (Id, Balance) VALUES (2, 6000);
-
-INSERT INTO CUSTOMER (Id, Balance) VALUES (3, 8500);
-
-INSERT INTO BOOK (Id, Price, Stock) VALUES (1, 85, 10);
-
-INSERT INTO BOOK (id, Price, Stock) VALUES (2, 40, 60);
-
-INSERT INTO BOOK (id, Price, Stock) VALUES (3, 80, 10);
-
-INSERT INTO ORDERS (Id, Customer_Id, Order_Date, Book_Id, Book_Count, Order_Amount) VALUES (1, 2, '2022-02-24 12:27:19.882449', 1, 10, 1500);
-
-INSERT INTO ORDERS (id, Customer_Id, Order_Date, Book_Id, Book_Count, Order_Amount) VALUES (2, 2, '2022-02-23 12:27:19.882449', 3, 23, 1500);
-
-INSERT INTO ORDERS (id, Customer_Id, Order_Date, Book_Id, Book_Count, Order_Amount) VALUES (3, 2, '2022-02-20 12:27:19.882449', 3, 23, 1500);
-
-INSERT INTO ORDERS (id, Customer_Id, Order_Date, Book_Id, Book_Count, Order_Amount) VALUES (4, 2, '2022-01-24 12:27:19.882449', 2, 23, 1500);
-
-INSERT INTO ORDERS (id, Customer_Id, Order_Date, Book_Id, Book_Count, Order_Amount) VALUES (5, 1, '2022-01-23 12:27:19.882449', 2, 100, 100);
-
 
 ### Docker build and run
 
@@ -54,39 +20,6 @@ docker build --tag=reading-is-good:1.0 .
 
 docker run -p 8090:8090 reading-is-good:1.0 .
 
-## Validation Messages;
-
-#### if you update book stock with negative number, then it will throw error as;
-updateStock.stock: must be greater than or equal to 0
-
-#### If you inquire get by negative or zero id, then it will throw error;
-updateStock.id: must be greater than 0
-
-#### If you add customer with negative balance, then it will throw error;
-[customerDto.balance,balance]; arguments [];default message [balance]]; default message [must be greater than or equal to 0]
-
-#### If you add book with negative or zero price, then it will throw error;
-[bookDto.price,price]; arguments []; default message [price]]; default message [must be greater than 0]
-
-#### If you add order with negative or zero orderAmount, then it will throw error;
-[orderDto.orderAmount,orderAmount]; arguments []; default message [orderAmount]]; default message [must be greater than 0]]
-
-#### If you add order with negative or zero customerId, then it will throw error;
-[orderDto.customerId,customerId]; arguments []; default message [customerId]]; default message [must be greater than 0]] ]
-
-#### If you add order with negative or zero customerId, then it will throw error;
-[orderDto.bookId,bookId]; arguments []; default message [bookId]]; default message [must be greater than 0]] ]
-
-#### If you add order with negative or zero bookCount, then it will throw error;
-[orderDto.bookCount,bookCount]; arguments []; default message [bookCount]]; default message [must be greater than 0]]
-
-## Authentication and Important Notes!;
-You won't be able to request without bearer token, so please get bearer token at first.
-For getting token > http://localhost:8090/token
-
-Then please choose Bearer Token authorization type on postman and paste your bearer token which you got from above url.
-
-If you request without bearer token or with expired or with wrong bearer token you will be Unothorized and forbidden error
 
 ## Postman requests;
 #### Health Check;
@@ -103,8 +36,14 @@ this will return bearer token as => Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJyZWFk
 
 For your postmand requests please consider authorization, Unless you will get Unauthorized error.
 
-Authorization type should be choose Bearer Token and paste your bearer token which you taken from getToken
+{
+"timestamp": "2022-02-26T13:35:12.492+00:00",
+"status": 401,
+"error": "Unauthorized",
+"path": "/orders"
+}
 
+Authorization type should be chosen Bearer Token and paste your bearer token which you taken from getToken
 
 #### Get Customer Orders;
 
@@ -180,19 +119,106 @@ then you will be get error like;
 }
 
 
-
 When you create order with book count bigger than book stock,
 then you will be get error like;
 
 {
-"apierror": {
-"status": "BAD_REQUEST",
-"timestamp": "25-02-2022 03:36:23",
-"message": "The stock of books is not enough for your order"
+    "apierror": {
+    "status": "BAD_REQUEST",
+    "timestamp": "25-02-2022 03:36:23",
+    "message": "The stock of books is not enough for your order"
+    }
 }
-}
+
+
+#### API DOC ####
+
+After running application you will be found API doc on: http://localhost:8090/api
+
+
+#### data.sql: ####
+
+INSERT INTO CUSTOMER (Id, Balance) VALUES (1, 8500);
+
+INSERT INTO CUSTOMER (Id, Balance) VALUES (2, 6000);
+
+INSERT INTO CUSTOMER (Id, Balance) VALUES (3, 8500);
+
+INSERT INTO BOOK (Id, Price, Stock) VALUES (1, 85, 10);
+
+INSERT INTO BOOK (id, Price, Stock) VALUES (2, 40, 60);
+
+INSERT INTO BOOK (id, Price, Stock) VALUES (3, 80, 10);
+
+INSERT INTO ORDERS (Id, Customer_Id, Order_Date, Book_Id, Book_Count, Order_Amount) VALUES (1, 2, '2022-02-24 12:27:19.882449', 1, 10, 1500);
+
+INSERT INTO ORDERS (id, Customer_Id, Order_Date, Book_Id, Book_Count, Order_Amount) VALUES (2, 2, '2022-02-23 12:27:19.882449', 3, 23, 1500);
+
+INSERT INTO ORDERS (id, Customer_Id, Order_Date, Book_Id, Book_Count, Order_Amount) VALUES (3, 2, '2022-02-20 12:27:19.882449', 3, 23, 1500);
+
+INSERT INTO ORDERS (id, Customer_Id, Order_Date, Book_Id, Book_Count, Order_Amount) VALUES (4, 2, '2022-01-24 12:27:19.882449', 2, 23, 1500);
+
+INSERT INTO ORDERS (id, Customer_Id, Order_Date, Book_Id, Book_Count, Order_Amount) VALUES (5, 1, '2022-01-23 12:27:19.882449', 2, 100, 100);
+
+## Validation Messages;
+
+#### if you update book stock with negative number, then it will throw error as;
+updateStock.stock: must be greater than or equal to 0
+
+#### If you inquire get by negative or zero id, then it will throw error;
+updateStock.id: must be greater than 0
+
+#### If you add customer with negative balance, then it will throw error;
+[customerDto.balance,balance]; arguments [];default message [balance]]; default message [must be greater than or equal to 0]
+
+#### If you add book with negative or zero price, then it will throw error;
+[bookDto.price,price]; arguments []; default message [price]]; default message [must be greater than 0]
+
+#### If you add order with negative or zero orderAmount, then it will throw error;
+[orderDto.orderAmount,orderAmount]; arguments []; default message [orderAmount]]; default message [must be greater than 0]]
+
+#### If you add order with negative or zero customerId, then it will throw error;
+[orderDto.customerId,customerId]; arguments []; default message [customerId]]; default message [must be greater than 0]] ]
+
+#### If you add order with negative or zero customerId, then it will throw error;
+[orderDto.bookId,bookId]; arguments []; default message [bookId]]; default message [must be greater than 0]] ]
+
+#### If you add order with negative or zero bookCount, then it will throw error;
+[orderDto.bookCount,bookCount]; arguments []; default message [bookCount]]; default message [must be greater than 0]]
+
+## Authentication and Important Notes!;
+You won't be able to request without bearer token, so please get bearer token at first.
+For getting token > http://localhost:8090/token
+
+Then please choose Bearer Token authorization type on postman and paste your bearer token which you got from above url.
+
+If you request without bearer token or with expired or with wrong bearer token you will be Unothorized and forbidden error
+
+
 
 Test Coverage Rate;
 
 ![img.png](img.png)
 
+
+### App Tech Stack
+
+Developed with **java 11**,
+
+**Springboot**,
+
+for data store **H2 database**,
+
+for easily implement JPA repositories **spring-boot-data-jpa**,
+
+for avoiding boilerplate code **Lombok**,
+
+for validating inputs **spring-boot-starter-validation**,
+
+for testing **spring-boot-starter-test, mockito and junit5**,
+
+for authentication **spring-boot-starter-security** ,
+
+for api doc *** *** was used.
+
+***Version 2.6.3 was used for all dependencies related to spring!***

@@ -131,11 +131,11 @@ class BookControllerTest {
     }
 
     @Test
-    public void it_should_save_customer() throws Exception {
+    public void it_should_save_book() throws Exception {
         //Given & //When
         Integer id = 1;
         Double price = 2.0;
-        BookDto bookDto = BookDto.builder().id(id).price(price).build();
+        BookDto bookDto = BookDto.builder().id(id).price(price).stock(3).build();
         when(bookService.create(bookDto)).thenReturn(bookDto);
 
         final ResultActions resultActions =

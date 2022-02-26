@@ -1,4 +1,4 @@
-package com.ates.readingisgood.controller.api;
+package com.ates.readingisgood.configuration.api;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.jsontype.impl.TypeIdResolverBase;

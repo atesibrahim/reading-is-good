@@ -37,9 +37,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public OrderDto get(Integer id) {
+    public OrderDto get(Integer id) throws RecordNotFoundException {
         log.info("Order get started. Coming data: . Order id :{}", id);
-        Order order = orderRepository.getById(id);
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException("No Order found with this id: "+id));
         log.info("Order get finished. Result data: . Order :{}", order);
         return OrderDto.builder()
                 .orderAmount(order.getOrderAmount())

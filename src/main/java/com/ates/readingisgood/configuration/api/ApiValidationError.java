@@ -1,4 +1,4 @@
-package com.ates.readingisgood.controller.api;
+package com.ates.readingisgood.configuration.api;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

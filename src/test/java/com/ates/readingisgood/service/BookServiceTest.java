@@ -41,7 +41,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void it_should_book_update_stock() throws RecordNotFoundException {
+    public void it_should_book_update_stock(){
         //Given
         Double price = 10.0;
         Integer stock = 31;

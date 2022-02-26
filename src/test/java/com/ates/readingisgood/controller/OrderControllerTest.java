@@ -56,7 +56,7 @@ class OrderControllerTest {
     public void it_should_get_order_by_id() throws Exception {
         //Given & //When
         Integer id = 1;
-        OrderDto orderDto = OrderDto.builder().customerId(id).build();
+        OrderDto orderDto = OrderDto.builder().customerId(id).bookId(id).bookCount(3).orderAmount(12.0).build();
         List<OrderDto> customerOrders = new ArrayList<>();
         customerOrders.add(orderDto);
         when(orderService.get(id)).thenReturn(orderDto);
@@ -74,9 +74,8 @@ class OrderControllerTest {
     public void it_should_save_order() throws Exception {
         //Given & //When
         Integer id = 1;
-        OrderDto orderDto = OrderDto.builder().customerId(id).build();
+        OrderDto orderDto = OrderDto.builder().customerId(id).bookId(id).bookCount(3).orderAmount(12.0).build();
         when(orderService.create(orderDto)).thenReturn(orderDto);
-
         final ResultActions resultActions =
                 mockMvc.perform(post("/orders")
                         .header("Authorization", token)

@@ -1,6 +1,6 @@
 package com.ates.readingisgood.exception;
 
-import com.ates.readingisgood.controller.api.ApiError;
+import com.ates.readingisgood.configuration.api.ApiError;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;

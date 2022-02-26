@@ -4,6 +4,7 @@ import com.ates.readingisgood.domain.Customer;
 import com.ates.readingisgood.domain.Order;
 import com.ates.readingisgood.dto.OrderDto;
 import com.ates.readingisgood.exception.DateException;
+import com.ates.readingisgood.exception.RecordNotFoundException;
 import com.ates.readingisgood.repository.CustomerRepository;
 import com.ates.readingisgood.repository.OrderRepository;
 import com.ates.readingisgood.service.order.OrderService;
@@ -86,7 +87,7 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void it_should_order_get_by_id() {
+    public void it_should_order_get_by_id() throws RecordNotFoundException {
         //Given
         Integer id = 1;
 
