@@ -32,7 +32,7 @@ public class BookRepositoryTest {
 		assertEquals(2, bookList.get(0).getId());
 		assertEquals(567, bookList.get(0).getStock());
 		assertEquals(125.0, bookList.get(0).getPrice());
-		assertEquals(2, bookList.size());
+		assertEquals(3, bookList.size());
 	}
 
 	@Test

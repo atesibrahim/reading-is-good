@@ -144,11 +144,16 @@ INSERT INTO CUSTOMER (Id, Balance) VALUES (2, 6000);
 
 INSERT INTO CUSTOMER (Id, Balance) VALUES (3, 8500);
 
+
+INSERT INTO CUSTOMER (Id, Balance) VALUES (4, 18500);
+
 INSERT INTO BOOK (Id, Price, Stock) VALUES (1, 85, 10);
 
 INSERT INTO BOOK (id, Price, Stock) VALUES (2, 40, 60);
 
 INSERT INTO BOOK (id, Price, Stock) VALUES (3, 80, 10);
+
+INSERT INTO BOOK (id, Price, Stock) VALUES (4, 8, 100);
 
 INSERT INTO ORDERS (Id, Customer_Id, Order_Date, Book_Id, Book_Count, Order_Amount) VALUES (1, 2, '2022-02-24 12:27:19.882449', 1, 10, 1500);
 
@@ -196,10 +201,32 @@ If you request without bearer token or with expired or with wrong bearer token y
 
 
 
-Test Coverage Rate;
+####Test Coverage Rate; ####
 
-![img.png](img.png)
+There are 57 test cases. And Test coverage as following;
+Total test coverage reate as is;
 
+readingisgood	100% (36/36)	92% (118/128)	94% (282/299)
+
+And details;
+
+configuration	100% (4/4)	78% (15/19)	80% (24/30)
+
+controller	100% (6/6)	90% (10/11)	96% (29/30)
+
+domain	100% (6/6)	100% (30/30)	100% (31/31)
+
+dto	100% (8/8)	88% (32/36)	88% (32/36)
+
+exception	100% (5/5)	90% (9/10)	90% (18/20)
+
+repository	100% (0/0)	100% (0/0)	100% (0/0)
+
+security	100% (1/1)	100% (4/4)	83% (20/24)
+
+service	100% (4/4)	100% (15/15)	100% (115/115)
+
+ReadingIsGoodApplication	100% (2/2)	100% (3/3)	100% (13/13)
 
 ### App Tech Stack
 
