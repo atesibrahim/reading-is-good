@@ -1,20 +1,15 @@
-package com.ates.bookordermanagement.dao.repository;
+package com.ates.readingisgood.repository;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import com.ates.readingisgood.domain.Order;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import com.ates.bookordermanagement.dao.model.OrderEntity;
-import com.ates.bookordermanagement.dao.order.OrderRepository;
 
-
+import java.util.Optional;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class OrderRepositoryTest {
@@ -22,26 +17,19 @@ public class OrderRepositoryTest {
 	@Mock
 	private OrderRepository orderRepository;
 	
-	private List<OrderEntity> orderEntities = new ArrayList<>();
-	
-	private OrderEntity orderEntity;
-	
 	@BeforeEach
-	public void init() {
-		orderEntity = new OrderEntity();
-		orderEntity.setBookCount(1);
-		orderEntity.setBookId(3L);
-		orderEntity.setCustomerId(1L);
-		orderEntity.setOrderAmount(250L);
-		orderEntities.add(orderEntity);
-	}
-	
+	public void init() {}
+
 	@Test
-	public void whenCalledGetAllOrder_thenReturnList() {
-		
-		when(orderRepository.findByCustomeridEquals(any())).thenReturn(orderEntities);
-		
-		assertEquals(3,orderRepository.findByCustomeridEquals(1L).get(0).getBookId());
+	public void it_should_find_by_id() {
+		// Given
+		final Order order = Order.builder().id(1).customerId(12).build();
+
+		// When
+		when(orderRepository.findById(any())).thenReturn(Optional.ofNullable(order));
+
+		// Then
+		assertEquals(1, order.getId());
 	}
 	
 }
