@@ -64,14 +64,16 @@ class CustomerControllerTest {
         OrderDto orderDto = OrderDto.builder().customerId(id).build();
         List<OrderDto> customerOrders = new ArrayList<>();
         customerOrders.add(orderDto);
-        when(customerService.listCustomerOrders(id)).thenReturn(customerOrders);
+        when(customerService.listCustomerOrders(id, 0, 10)).thenReturn(customerOrders);
 
         final ResultActions resultActions =
                 mockMvc.perform(get("/customers/{id}/orders", id)
                         .header("Authorization", token)
+                        .param("page_no", "0")
+                                .param("page_size", "10")
                         .contentType(MediaType.APPLICATION_JSON));
         //Then
-        verify(customerService).listCustomerOrders(id);
+        verify(customerService).listCustomerOrders(id, 0, 10);
         resultActions.andExpect(status().isOk());
     }
 

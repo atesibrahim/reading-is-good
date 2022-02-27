@@ -4,6 +4,8 @@ import com.ates.readingisgood.dto.StatisticsDto;
 import com.ates.readingisgood.repository.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
@@ -20,9 +22,10 @@ public class StatisticsServiceImpl implements StatisticsService {
     OrderRepository orderRepository;
 
     @Override
-    public List<StatisticsDto> getCustomerMonthlyStatistics(Integer customerId) {
-        log.info("StatisticsService getCustomerMonthlyStatistics started. Coming customer_id: {}", customerId);
-        List<Map<String, Object>> orderMonthlyStatistics = orderRepository.findMonthlyOrderStatistics(customerId);
+    public List<StatisticsDto> getCustomerMonthlyStatistics(Integer customerId, Integer pageNo, Integer pageSize) {
+        log.info("StatisticsService getCustomerMonthlyStatistics started. Coming customerId: {}, pageNo: {}, pageSize: {}", customerId, pageNo, pageSize);
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        List<Map<String, Object>> orderMonthlyStatistics = orderRepository.findMonthlyOrderStatistics(customerId, pageable);
         List<StatisticsDto> monthlyStatistics = new ArrayList<>();
 
         if (orderMonthlyStatistics.size() < 1) {

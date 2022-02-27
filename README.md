@@ -102,11 +102,11 @@ For your postmand requests please consider authorization, Unless you will get Un
 
 #### Get Customer Orders
 
-GET: http://localhost:8090/customers/2/orders
+GET: http://localhost:8090/customers/2/orders?page_no=0&page_size=1
 
 #### Get Customer Monthly Statistics
 
-GET: http://localhost:8090/statistics/1
+GET: http://localhost:8090/statistics/2?page_no=1&page_size=1
 
 
 #### Add New Customer
@@ -138,7 +138,7 @@ GET: http://localhost:8090/orders/1
 
 #### List Orders By Date
 
-GET : http://localhost:8090/orders?startDate=2022-02-20&endDate=2022-02-22
+GET : http://localhost:8090/orders?start_date=2022-01-01&end_date=2022-02-21&page_no=0&page_size=2
 
 *if start date bigger than end date, you will get response as;*
 

@@ -37,7 +37,7 @@ public class OrderServiceTest {
 
         Date endDate = new Date();
         //When
-        assertEquals(4, orderService.listOrdersByDateInterval(startDate, endDate).size());
+        assertEquals(4, orderService.listOrdersByDateInterval(startDate, endDate, 0, 4).size());
 
     }
 
@@ -48,7 +48,7 @@ public class OrderServiceTest {
         Date startDate = new Date();
         Date endDate2 = new Date();
         //When
-        assertEquals(0, orderService.listOrdersByDateInterval(startDate, endDate2).size());
+        assertEquals(0, orderService.listOrdersByDateInterval(startDate, endDate2, 0, 4).size());
 
     }
 
@@ -66,7 +66,7 @@ public class OrderServiceTest {
 
         //When && Then
         try {
-            orderService.listOrdersByDateInterval(endDate2, startDate);
+            orderService.listOrdersByDateInterval(endDate2, startDate, 0, 4);
         } catch (DateException d){
             assertEquals("StartDate Cannot Be Greater Than EndDate", d.getMessage());
         }

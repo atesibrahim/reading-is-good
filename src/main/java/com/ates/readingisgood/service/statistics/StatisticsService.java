@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface StatisticsService {
 
-    List<StatisticsDto> getCustomerMonthlyStatistics(Integer customerId);
+    List<StatisticsDto> getCustomerMonthlyStatistics(Integer customerId, Integer pageNo, Integer pageSize);
 }

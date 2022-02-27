@@ -49,7 +49,7 @@ public class CustomerServiceTest {
         when(customerRepository.save(customer)).thenReturn(customer);
 
         //When
-        assertEquals(4, customerService.listCustomerOrders(id).size());
+        assertEquals(4, customerService.listCustomerOrders(id, 0, 10).size());
 
         //Then
     }
@@ -60,7 +60,7 @@ public class CustomerServiceTest {
         Integer id = 10;
 
         //When
-        assertEquals(0, customerService.listCustomerOrders(id).size());
+        assertEquals(0, customerService.listCustomerOrders(id, 0, 10).size());
 
         //Then
         verifyNoInteractions(customerRepository);
