@@ -8,6 +8,8 @@ import com.ates.readingisgood.repository.CustomerRepository;
 import com.ates.readingisgood.repository.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -36,9 +38,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<OrderDto> listCustomerOrders(Integer id) {
-        log.info("Customer listCustomerOrders started. Coming data: . Customer id :{}", id);
-        List<Order> orders = customerRepository.findOrdersById(id);
+    public List<OrderDto> listCustomerOrders(Integer id, Integer pageNo, Integer pageSize) {
+        log.info("Customer listCustomerOrders started. Coming data: . Customer id :{}, pageNo: {}, pageSize: {}", id, pageNo, pageSize);
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        List<Order> orders = customerRepository.findOrdersById(id, pageable);
         List<OrderDto> customerOrders = new ArrayList<>();
         if (orders.size() > 0) {
             orders.forEach(element -> {

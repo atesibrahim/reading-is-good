@@ -14,5 +14,5 @@ public interface OrderService {
 
     OrderDto create(OrderDto orderDto) throws SufficientException, RecordNotFoundException;
 
-    List<OrderDto> listOrdersByDateInterval(Date startDate, Date endDate) throws DateException;
+    List<OrderDto> listOrdersByDateInterval(Date startDate, Date endDate, Integer pageNo, Integer pageSize) throws DateException;
 }

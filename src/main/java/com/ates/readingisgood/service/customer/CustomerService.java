@@ -9,5 +9,5 @@ public interface CustomerService {
 
     CustomerDto create(CustomerDto customerDto);
 
-    List<OrderDto> listCustomerOrders(Integer id);
+    List<OrderDto> listCustomerOrders(Integer id, Integer pageNo, Integer pageSize);
 }

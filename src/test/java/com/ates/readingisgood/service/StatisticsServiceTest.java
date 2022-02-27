@@ -18,7 +18,7 @@ public class StatisticsServiceTest {
         //Given
         Integer id = 2;
         //When && Then
-        assertEquals(2, statisticsService.getCustomerMonthlyStatistics(id).size());
+        assertEquals(2, statisticsService.getCustomerMonthlyStatistics(id, 0, 4).size());
     }
 
     @Test
@@ -26,7 +26,7 @@ public class StatisticsServiceTest {
         //Given
         Integer id = 10;
         //When && Then
-        assertEquals(0, statisticsService.getCustomerMonthlyStatistics(id).size());
+        assertEquals(0, statisticsService.getCustomerMonthlyStatistics(id, 0, 4).size());
     }
 
 

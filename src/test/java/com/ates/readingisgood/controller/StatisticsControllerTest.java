@@ -54,14 +54,16 @@ class StatisticsControllerTest {
         StatisticsDto statisticsDto = StatisticsDto.builder().build();
         List<StatisticsDto> customerStatistics = new ArrayList<>();
         customerStatistics.add(statisticsDto);
-        when(statisticsService.getCustomerMonthlyStatistics(id)).thenReturn(customerStatistics);
+        when(statisticsService.getCustomerMonthlyStatistics(id, 0, 4)).thenReturn(customerStatistics);
 
         final ResultActions resultActions =
                 mockMvc.perform(get("/statistics/{id}", id)
+                                .param("page_no", "0")
+                                .param("page_size", "4")
                         .header("Authorization", token)
                         .contentType(MediaType.APPLICATION_JSON));
         //Then
-        verify(statisticsService).getCustomerMonthlyStatistics(id);
+        verify(statisticsService).getCustomerMonthlyStatistics(id, 0, 4);
         resultActions.andExpect(status().isOk());
     }
 

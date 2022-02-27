@@ -100,7 +100,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJyZWFkaW5nS2V5IiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0NTc5MTkzMiwiZXhwIjoxNjQ1NzkyNTMyfQ.pnVvhNat6uz7V6Ms1MemIWlNVY_0rlWzVTp872hviCbFps1VGguZVKOqo4KCasKe41J4Olo3k3tU8PU7gF6Wgw",
+							"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJyZWFkaW5nS2V5IiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0NTk2Njg3MiwiZXhwIjoxNjQ1OTY3NDcyfQ.9T4nL0QwzS3eusFYVvmpKJOrIOPmOdt5lfjJM8Wt3FN7KV2MI7nPiY0NAr_Pb3kdFXTjd7c1CCqkAWIjdfEDDQ",
 							"type": "string"
 						}
 					]
@@ -108,7 +108,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8090/customers/2/orders",
+					"raw": "http://localhost:8090/customers/2/orders?page_no=0&page_size=1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -118,6 +118,16 @@
 						"customers",
 						"2",
 						"orders"
+					],
+					"query": [
+						{
+							"key": "page_no",
+							"value": "0"
+						},
+						{
+							"key": "page_size",
+							"value": "1"
+						}
 					]
 				}
 			},
@@ -131,7 +141,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJyZWFkaW5nS2V5IiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0NTc5MTkzMiwiZXhwIjoxNjQ1NzkyNTMyfQ.pnVvhNat6uz7V6Ms1MemIWlNVY_0rlWzVTp872hviCbFps1VGguZVKOqo4KCasKe41J4Olo3k3tU8PU7gF6Wgw",
+							"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJyZWFkaW5nS2V5IiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0NTk2NjY1NCwiZXhwIjoxNjQ1OTY3MjU0fQ.55dfU7xF6PAReTd4eI2O9md6eRtWxrk4Ifj9IhHAfM0KJ10VcE_J1Zy0Q3IDjVpYEJd485p6oj4y8M6aso2jdQ",
 							"type": "string"
 						}
 					]
@@ -139,7 +149,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8090/orders?startDate=2022-02-20&endDate=2022-02-21",
+					"raw": "http://localhost:8090/orders?start_date=2022-01-01&end_date=2022-02-21&page_no=0&page_size=2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -150,12 +160,20 @@
 					],
 					"query": [
 						{
-							"key": "startDate",
-							"value": "2022-02-20"
+							"key": "start_date",
+							"value": "2022-01-01"
 						},
 						{
-							"key": "endDate",
+							"key": "end_date",
 							"value": "2022-02-21"
+						},
+						{
+							"key": "page_no",
+							"value": "0"
+						},
+						{
+							"key": "page_size",
+							"value": "2"
 						}
 					]
 				}
@@ -165,10 +183,20 @@
 		{
 			"name": "Customer Order Statistics",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJyZWFkaW5nS2V5IiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0NTk2Njc1MiwiZXhwIjoxNjQ1OTY3MzUyfQ.tnFxSE2kSyuSLF4zrAheXDUN3VBs_gwRmoXtSmFAMORbnD56zLQqIETdZeDcIvIF-s5CQwcm_u3yAIfCz9jsUw",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8090/statistics/1",
+					"raw": "http://localhost:8090/statistics/2?page_no=1&page_size=1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -176,7 +204,17 @@
 					"port": "8090",
 					"path": [
 						"statistics",
-						"1"
+						"2"
+					],
+					"query": [
+						{
+							"key": "page_no",
+							"value": "1"
+						},
+						{
+							"key": "page_size",
+							"value": "1"
+						}
 					]
 				}
 			},

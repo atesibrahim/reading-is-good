@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.Date;
 import java.util.List;
 
@@ -50,8 +51,11 @@ public class OrderController {
             @ApiResponse(responseCode = "200", description = "successful operation",
                     content = @Content(array = @ArraySchema(schema = @Schema(implementation = OrderDto.class)))) })
     @GetMapping
-    public List<OrderDto> listOrdersByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate, @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam Date endDate) throws DateException {
-        return orderService.listOrdersByDateInterval(startDate, endDate);
+    public List<OrderDto> listOrdersByDate(@RequestParam(name = "start_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                                           @RequestParam(name = "end_date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+                                           @RequestParam(name = "page_no") @PositiveOrZero Integer pageNo,
+                                           @RequestParam(name = "page_size") @Positive Integer pageSize) throws DateException {
+        return orderService.listOrdersByDateInterval(startDate, endDate, pageNo, pageSize);
     }
 
     @Operation(summary = "Create New Order", description = "Create New Order", tags = { "Orders" })

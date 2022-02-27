@@ -12,6 +12,8 @@ import com.ates.readingisgood.repository.CustomerRepository;
 import com.ates.readingisgood.repository.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -90,7 +92,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDto> listOrdersByDateInterval(Date startDate, Date endDate) throws DateException {
+    public List<OrderDto> listOrdersByDateInterval(Date startDate, Date endDate, Integer pageNo, Integer pageSize) throws DateException {
         log.info("Order listOrdersByDateInterval started. Coming Start date:{}, End date:{}", startDate, endDate);
         if (startDate.after(endDate)){
             log.warn("Start date cannot be greater than end date");
@@ -103,8 +105,8 @@ public class OrderServiceImpl implements OrderService {
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime();
 
-        List<Order> orders = orderRepository.findByOrderDateIsBetween(localStartDate, localEndDate);
-
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        List<Order> orders = orderRepository.findByOrderDateIsBetween(localStartDate, localEndDate,pageable);
         List<OrderDto> resultOrders = new ArrayList<>();
         orders.forEach(order->
                 resultOrders.add(OrderDto.builder()

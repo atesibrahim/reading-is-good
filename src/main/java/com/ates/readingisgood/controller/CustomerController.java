@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 @RestController
@@ -36,8 +38,10 @@ public class CustomerController {
             @ApiResponse(responseCode = "200", description = "successful operation",
                     content = @Content(array = @ArraySchema(schema = @Schema(implementation = OrderDto.class)))) })
     @GetMapping(value = "/{id}/orders")
-    public List<OrderDto> getCustomerOrders(@PathVariable(name = "id")  @Positive Integer id){
-        return customerService.listCustomerOrders(id);
+    public List<OrderDto> getCustomerOrders(@PathVariable(name = "id")  @Positive Integer id,
+                                            @RequestParam(name = "page_no") @PositiveOrZero Integer pageNo,
+                                            @RequestParam(name = "page_size") @Positive Integer pageSize){
+        return customerService.listCustomerOrders(id, pageNo, pageSize);
     }
 
     @Operation(summary = "Create New Customer", description = "Create New Customer", tags = { "Customer" })
