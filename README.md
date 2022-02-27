@@ -66,6 +66,16 @@ The application developed with
 
 
 ### Api Endpoints
+
+Postman collection is here 
+[ReadingIsGood.postman_collection.json](https://github.com/atesibrahim/reading-is-good/tree/master/src/main/resources/postman-collection/ReadingIsGood.postman_collection.json)
+
+You will be found postman collection under `resource/postman-collection`
+
+***Not that: Please be aware of getting token at the first. Otherwise, you will get forbidden error without token*** 
+
+*If the file does not open for any reason, please consider the requests below.*
+
 #### Health Check
 
 GET : http://localhost:8090/health
