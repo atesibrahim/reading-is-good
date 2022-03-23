@@ -8,7 +8,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,6 +23,8 @@ public class BookServiceImpl implements BookService {
 
     @Autowired
     BookRepository bookRepository;
+
+    private BookExcelExport bookExcelExport;
 
     @Override
     @Transactional
@@ -39,5 +47,18 @@ public class BookServiceImpl implements BookService {
         Book result = bookRepository.save(book.get());
         log.info("Book update stock finished. Response data of book: {} ", result);
         return BookDto.builder().id(result.getId()).stock(result.getStock()).price(result.getPrice()).build();
+    }
+
+    @Override
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=books_" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+        List<Book> bookList = bookRepository.findAll();
+        bookExcelExport = new BookExcelExport();
+        bookExcelExport.export(response, bookList);
     }
 }
